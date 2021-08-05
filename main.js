@@ -55,11 +55,16 @@ const TEST_EXT_PATH = path.join(__dirname, process.env.RELATIVE_EXT_PATH);
   // count time => After logging in, the display is complete
   console.time("LoginAfterDispalyComplate");
   await controlPage.waitForTimeout(1000 * 1);
-  await controlPage.waitForFunction(() => {
-    const bts = document.querySelectorAll("#jsxMountElement button");
-    const loadMoreBt = Array.from(bts).pop();
-    return !loadMoreBt.disabled;
-  });
+  await controlPage.waitForFunction(
+    () => {
+      const bts = document.querySelectorAll("#jsxMountElement button");
+      const loadMoreBt = Array.from(bts).pop();
+      return !loadMoreBt.disabled;
+    },
+    {
+      timeout: 0,
+    }
+  );
   console.timeEnd("LoginAfterDispalyComplate");
   await browser.close();
 })();
